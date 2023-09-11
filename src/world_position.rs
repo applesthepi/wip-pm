@@ -2,8 +2,6 @@ use proc_macro::TokenStream;
 use syn::{parse_macro_input, DeriveInput};
 
 const IMPL_TRAIT: &[&str] = &[
-	"std::cmp::PartialEq",
-	"std::cmp::PartialOrd",
 	"std::ops::Add",
 	"std::ops::Sub",
 	"std::ops::Mul",
@@ -11,31 +9,7 @@ const IMPL_TRAIT: &[&str] = &[
 ];
 
 const IMPL_FN: &[&str] = &[
-/* PARTIAL_EQ */"
-fn eq(&self, rhs: &Self) -> bool {
-	self.x == rhs.x &&
-	self.y == rhs.y
-} fn ne(&self, rhs: &Self) -> bool {
-	!self.eq(rhs)
-}", /* PARTIAL_ORD */"
-fn ge(&self, rhs: &Self) -> bool {
-	self.x >= rhs.x &&
-	self.y >= rhs.y
-} fn le(&self, rhs: &Self) -> bool {
-	self.x <= rhs.x &&
-	self.y <= rhs.y
-} fn gt(&self, rhs: &Self) -> bool {
-	self.x > rhs.x &&
-	self.y > rhs.y
-} fn lt(&self, rhs: &Self) -> bool {
-	self.x < rhs.x &&
-	self.y < rhs.y
-} fn partial_cmp(&self, rhs: &Self) -> Option<std::cmp::Ordering> {
-	if self.lt(rhs) { Some(std::cmp::Ordering::Less) } else
-	if self.gt(rhs) { Some(std::cmp::Ordering::Greater) } else
-	{ Some(std::cmp::Ordering::Equal) }
-}
-",/* ADD */"
+/* ADD */"
 type Output = Self;
 fn add(self, rhs: Self) -> Self::Output {
 	Self::new(
